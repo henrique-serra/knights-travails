@@ -30,6 +30,15 @@ export default class Knight {
   }
 
   move(start = [this.x, this.y], end) {
+    if (!Array.isArray(start) || start.length !== 2 ||
+        !Array.isArray(end) || end.length !== 2) {
+      throw new Error("Parâmetros inválidos: use [x, y]");
+    }
+
+    if (Knight.offLimits(...start) || Knight.offLimits(...end)) {
+      throw new Error(`Posição inválida: ${start} ou ${end}`);
+    }
+
   const queue = [[start]];
   const visited = new Set([`${start[0]},${start[1]}`]);
 
